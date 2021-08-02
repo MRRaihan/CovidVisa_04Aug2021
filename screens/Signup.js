@@ -8,31 +8,14 @@ import {Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import { StyledContainer, InnerContainer, PageLogo, PageTitle, SubTitle, StyledFromArea, LeftIcon, RightIcon, StyledInputLabel, StyledTextInput, Colors, StyledText, StyledButton, ButtonText, MsgBox, Line, ExtraView, ExtraText, TextLink, TextLinkContent } from './../components/styles';
 
 //Colors
-const {brand, darkLight, primary} = Colors;
+const {brand, darkLight, primary, blue} = Colors;
 
-//DateTimePicker
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {View, TouchableOpacity} from 'react-native';
 
 const Signup = () => {
           const [hidePassword, setHidePassword ] = useState(true);
           const [show, setShow] = useState(false);
-          const [date, setDate] = useState(new Date(2000, 0, 1));
-
-          //Actual date of birth to be sent
-          const [dob, setDob] = useState();
-
-          const onChange = (event, selectedDate) =>{
-                    const currentDate = selectedDate || date;
-                    setShow(false);
-                    setDate(currentDate);
-                    setDob(currentDate);
-          }
-
-          const showDatePicker = () =>{
-                    setShow(true);
-          }
 
           return (
                     <StyledContainer>
@@ -40,19 +23,8 @@ const Signup = () => {
                               <InnerContainer>
                                         <PageLogo resizeMode="cover" source={require('./../assets/images/logo.png')} />
 
-                                        {show &&(
-                                                  <DateTimePicker 
-                                                            testID="dateTimePicker"
-                                                            value={date}
-                                                            mode='date'
-                                                            is24Hour={true}
-                                                            display="default"
-                                                            onChange={onChange}
-                                                  />
-                                        )}
-
                                         <Formik 
-                                                  initialValues={{fullName:"", email: "", dateOfBirth:"", password: "", confirmPassword:""}}
+                                                  initialValues={{fullName:"", email: "", phone:"", password: "", confirmPassword:""}}
                                                   onSubmit={(values) => {
                                                             console.log(values);
                                                   }}
@@ -62,7 +34,7 @@ const Signup = () => {
                                                             <MyTextInput
                                                                       label="Full Name"
                                                                       icon="person"
-                                                                      placeholder="Imdadul Haque"
+                                                                      placeholder="Enter your name...."
                                                                       placeholderTextColor={darkLight}
                                                                       onChangeText={handleChange('fullName')}
                                                                       onBlur={handleBlur('fullName')}
@@ -71,7 +43,7 @@ const Signup = () => {
                                                             <MyTextInput
                                                                       label="Email Address"
                                                                       icon="mail"
-                                                                      placeholder="imdadul15-1440@diu.edu.bd"
+                                                                      placeholder="Enter your email...."
                                                                       placeholderTextColor={darkLight}
                                                                       onChangeText={handleChange('email')}
                                                                       onBlur={handleBlur('email')}
@@ -80,15 +52,13 @@ const Signup = () => {
                                                             />
                                                             <MyTextInput
                                                                       label="Mobile"
-                                                                      icon="phone"
+                                                                      icon="calendar"
                                                                       placeholder="+8801700000000"
                                                                       placeholderTextColor={darkLight}
-                                                                      onChangeText={handleChange('dateOfBirth')}
-                                                                      onBlur={handleBlur('dateOfBirth')}
-                                                                      value={dob ? dob.toDateString() : ""}
-                                                                      isDate={true}
-                                                                      editable={false}
-                                                                      showDatePicker={showDatePicker}
+                                                                      onChangeText={handleChange('phone')}
+                                                                      onBlur={handleBlur('phone')}
+                                                                      value={values.phone}
+                                                                      keyboardType="numeric"
 
                                                             />
 
@@ -112,7 +82,7 @@ const Signup = () => {
                                                                       placeholderTextColor={darkLight}
                                                                       onChangeText={handleChange('confirmPassword')}
                                                                       onBlur={handleBlur('confirmPassword')}
-                                                                      value={values.password}
+                                                                      value={values.confirmPassword}
                                                                       secureTextEntry={hidePassword}
                                                                       isPassword = {true}
                                                                       hidePassword = {hidePassword}
@@ -140,19 +110,14 @@ const Signup = () => {
           );
 }
 
-const MyTextInput =({label, icon, isPassword, hidePassword, setHidePassword, isDate, showDatePicker, ...props}) =>{
+const MyTextInput =({label, icon, isPassword, hidePassword, setHidePassword, ...props}) =>{
           return(
                     <View>
                               <LeftIcon>
                                         <Octicons name={icon} size={30} color={brand} />
                               </LeftIcon>
                               <StyledInputLabel> {label}</StyledInputLabel>
-                              {!isDate && <StyledTextInput {...props} />}
-                              {isDate && (
-                                        <TouchableOpacity onPress={showDatePicker}>
-                                                  <StyledTextInput {...props} />
-                                        </TouchableOpacity>
-                              )}
+                              <StyledTextInput {...props} />
                               
                               {isPassword && (
                                         <RightIcon onPress={() => setHidePassword(!hidePassword)}>
