@@ -32,7 +32,7 @@ const Login = () => {
                                                             <MyTextInput
                                                                       label="Email Address"
                                                                       icon="mail"
-                                                                      placeholder="imdadul15-1440@diu.edu.bd"
+                                                                      placeholder="Enter your email...."
                                                                       placeholderTextColor={darkLight}
                                                                       onChangeText={handleChange('email')}
                                                                       onBlur={handleBlur('email')}
