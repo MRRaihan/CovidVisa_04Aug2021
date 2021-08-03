@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {TextInput} from "react-native-gesture-handler";
-import { View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Button } from 'react-native';
+import { Button} from 'react-native-paper';
+import { View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 
 
 function MobileOTP({ navigation }) {
@@ -51,10 +52,6 @@ function MobileOTP({ navigation }) {
                     }
           }
 
-          //Just Summitted Status
-          const sumittedStatus=()=>{
-                    alert("Successfully Submitted!")
-          }
           useEffect(() =>{
                     textInput.focus();
           }, [])
@@ -122,9 +119,7 @@ function MobileOTP({ navigation }) {
                               </View>
                               <View style={styles.container}>
                                         <TouchableOpacity>
-                                                  <Button style={styles.otpButton} title="Verify & Continue"
-                                                                                onPress={sumittedStatus}
-                                                            />
+                                                  <Button  style={styles.otpButton}> <View style={styles.otpButtonView}>Verify & Continue</View> </Button>
                                         </TouchableOpacity>
                               </View>
                               
@@ -135,8 +130,10 @@ function MobileOTP({ navigation }) {
 
 const styles = StyleSheet.create({
           container: {
-                    flex: 1,
-                    backgroundColor: "#f0eded"
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100%'
           },
           containerAvoidingView:{
                     flex: 1,
@@ -171,7 +168,7 @@ const styles = StyleSheet.create({
                     flexDirection: 'column',
                     flex: 1,
                     justifyContent: 'center',
-                    marginBottom: 50,
+                    marginTop: 30,
                     paddingTop: 20,
                     alignItems: 'center'
           },
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
                     height: 'auto',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: 20
+                    
           },
           textChange:{
                     color: '#234BB7',
@@ -199,9 +196,14 @@ const styles = StyleSheet.create({
                     fontSize: 15
           },
           otpButton:{
-                    width: 200,
-                    height: 20,
-                    backgroundColor: "0a5ff2#"
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'blue',
+                    marginTop: -60,
+                    width: 200
+          },
+          otpButtonView:{
+                    color: "white",
           }
 })
 
